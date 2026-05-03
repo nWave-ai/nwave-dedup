@@ -38,9 +38,10 @@ dependencies = [
     "tree-sitter>=0.23.0",
     # Pre-bundled grammars (Python, JS, TS, Rust, Go, Ruby, OCaml, +50 more)
     # Provides `get_parser(lang_name)` API — no separate compilation per grammar
-    # Pin: 0.7.0 has the stable get_language/get_parser API. Newer 1.x has
-    # diverged (incompatible internal layout); reassess on upgrade.
-    "tree-sitter-language-pack>=0.7.0,<1.0.0",
+    # Pin: hard ==0.7.0 because 0.13.0 produced empty groups in CI smoke
+    # tests (likely grammar revision changed AST shape; investigate before
+    # widening). Earned Trust: pin tight, expand only after empirical probe.
+    "tree-sitter-language-pack==0.7.0",
     # CLI + reporting
     "rich>=13.0.0",
 ]
