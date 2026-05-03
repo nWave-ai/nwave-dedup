@@ -7,9 +7,12 @@ and out of scope for unit tests.
 
 from __future__ import annotations
 
-from pathlib import Path
+from typing import TYPE_CHECKING
 
 from nwave_dedup.scanner import scan_paths
+
+if TYPE_CHECKING:
+    from pathlib import Path
 
 
 def test_scan_python_fixture_finds_two_clones(tmp_path: Path) -> None:
@@ -53,9 +56,8 @@ def bar(y):
     # Both functions have the same shape (assignment chain + return).
     # They differ only in identifier names + literal values, which the
     # normalizer collapses. Expect at least one group with 2 members.
-    assert any(g.size == 2 for g in groups), (
-        f"Expected a 2-clone group, got: {[(g.size, [m.name for m in g.members]) for g in groups]}"
-    )
+    summary = [(g.size, [m.name for m in g.members]) for g in groups]
+    assert any(g.size == 2 for g in groups), f"Expected a 2-clone group, got: {summary}"
 
 
 def test_scan_empty_dir_returns_no_groups(tmp_path: Path) -> None:

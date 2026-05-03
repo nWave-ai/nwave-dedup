@@ -21,7 +21,6 @@ from __future__ import annotations
 import hashlib
 from collections import defaultdict
 from dataclasses import dataclass, field
-from pathlib import Path
 from typing import TYPE_CHECKING
 
 from nwave_dedup.languages import (
@@ -32,6 +31,7 @@ from nwave_dedup.languages import (
 
 if TYPE_CHECKING:
     from collections.abc import Iterable, Iterator
+    from pathlib import Path
 
 
 @dataclass(frozen=True)
@@ -135,10 +135,9 @@ def _iter_units(
             parser_cache[lang] = parser
 
         tree = parser.parse(source)
-        for unit in _extract_functions(
+        yield from _extract_functions(
             tree.root_node, path, lang, source, min_statements
-        ):
-            yield unit
+        )
 
 
 def _extract_functions(

@@ -114,10 +114,11 @@ def classify(group: DuplicateGroup) -> ClassificationResult:
         # STRUCTURAL — pytest-bdd step files in path-with-hyphen dirs
         non_python_dir_paths = [p for p in paths if _NON_PYTHON_DIR_RE.search(str(p))]
         if non_python_dir_paths and _has_pytest_bdd_decorator(non_python_dir_paths[0]):
+            dir_name = non_python_dir_paths[0].parent.name
             return ClassificationResult(
                 Classification.STRUCTURAL,
                 "pytest-bdd step in path-with-hyphen directory "
-                f"({non_python_dir_paths[0].parent.name!r}) — Python import unavailable, "
+                f"({dir_name!r}) - Python import unavailable, "
                 "local re-declaration required by tooling",
             )
 
@@ -159,8 +160,8 @@ def classify(group: DuplicateGroup) -> ClassificationResult:
     # Default
     return ClassificationResult(
         Classification.MIGRATABLE,
-        f"{group.size} clones × ~{group.stmt_count} stmts in production code; "
-        "no structural / adapter / fixture markers detected — extract to shared helper",
+        f"{group.size} clones * ~{group.stmt_count} stmts in production code; "
+        "no structural / adapter / fixture markers detected - extract to shared helper",
     )
 
 

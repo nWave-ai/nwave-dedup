@@ -64,7 +64,7 @@ def test_test_fixture_in_conftest(tmp_path: Path) -> None:
     """Function in conftest.py → TEST_FIXTURE."""
     (tmp_path / "conftest.py").write_text("# stub")
     (tmp_path / "test_x.py").write_text("# stub")
-    g = DuplicateGroup(
+    DuplicateGroup(
         hash="x",
         members=[
             _unit(str(tmp_path / "conftest.py"), "test_logger"),
