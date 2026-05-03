@@ -10,7 +10,7 @@ readme = "README.md"
 license = {text = "MIT"}
 requires-python = ">=3.10"
 authors = [
-    { name = "Alessandro Di Gioia", email = "alessandro.digioia@brix.consulting" },
+    { name = "Alessandro Di Gioia", email = "alex@nwave.ai" },
 ]
 keywords = [
     "code-quality",
